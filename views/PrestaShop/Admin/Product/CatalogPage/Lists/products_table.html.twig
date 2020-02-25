@@ -10,6 +10,9 @@
             {{ "Image"|trans({}, 'Admin.Global') }}
         </th>
         <th scope="col">
+            {{ ps.sortable_column_header("Ean13"|trans({}, 'Admin.Global'), 'ean13', orderBy, sortOrder) }}
+        </th>
+        <th scope="col">
             {{ ps.sortable_column_header("Name"|trans({}, 'Admin.Global'), 'name', orderBy, sortOrder) }}
         </th>
 
@@ -60,6 +63,16 @@
             } %}
         </th>
         <th>&nbsp;</th>
+        <th>
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ "Search ean13"|trans({}, 'Admin.Catalog.Help') }}"
+                    name="filter_column_name"
+                    value="{{ filter_column_name }}"
+                    {% if filters_disabled %}disabled{% endif %}
+            />
+        </th>
         <th>
             <input
                     type="text"
