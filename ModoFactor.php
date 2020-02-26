@@ -27,6 +27,7 @@ class ModoFactor extends Module
     {
         return parent::install()
             && $this->registerHook('displayHome')
+            && $this->registerHook('ActionAdminProductsListingFieldsModifier')
             && $this->createTabLink()
             ;
     }
@@ -41,6 +42,32 @@ class ModoFactor extends Module
     public function hookDisplayHome()
     {
         return $this->display(__FILE__,"views/templates/hook/home.twig");
+    }
+
+
+    public function hookActionAdminProductsListingFieldsModifier($params)
+    {
+        /**
+         * Rajout du fabricant
+         */
+//Champ sql
+        $params['sql_select']['ean13'] = [
+            'table' => 'st',
+            'field' => 'ean13',
+            'filtering' => \PrestaShop\PrestaShop\Adapter\Admin\AbstractAdminQueryBuilder::FILTERING_LIKE_BOTH
+        ];
+//Table sql
+        $params['sql_table']['st'] = [
+            'table' => 'stock',
+            'join' => 'LEFT JOIN',
+            'on' => 'p.id_product = st.id_product',
+        ];
+
+//Gestion du filtre, si un paramètre post est défini ( c'est le nom du champ dans le fichier displayAdminCatalogTwigProductFilter.tpl )
+        $ean13_filter = Tools::getValue('filter_column_ean13',false);
+        if ( $ean13_filter && $ean13_filter != '') {
+            $params['sql_where'][] .= "p.ean13 =".$ean13_filter;
+        }
     }
 
     public function createTabLink()

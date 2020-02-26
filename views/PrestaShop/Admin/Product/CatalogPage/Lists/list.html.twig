@@ -19,7 +19,7 @@
             <a href="{{ product.url|default('') }}#tab-step1">{{ product.image|raw }}</a>
         </td>
         <td>
-            <!---TODO colonne ean13 -->
+            {{ product.ean13 }}
         </td>
         <td>
             <a href="{{ product.url|default('') }}#tab-step1">{{ product.name|default('N/A'|trans({}, 'Admin.Global')) }}</a>

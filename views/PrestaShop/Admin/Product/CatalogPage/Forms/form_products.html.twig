@@ -1,14 +1,7 @@
-{% extends 'PrestaShopBundle:Admin/Product/CatalogPage:catalog.html.twig' %}
+{% extends 'PrestaShopBundle:Admin/Product/CatalogPage/Forms:form_products.html.twig' %}
 
-{% block product_catalog_filters %}
-    <h1>Hello Everybody!</h1>
-{% endblock %}
-
-
-
-{% block product_catalog_form %}
-    <!--- ajout du filtre ean13 dans le block avec modification du fichier PrestaShopBundle/Entity/AdminFilter.php --->
-    {{ include('@Product/CatalogPage/Forms/form_products.html.twig', {
+{% block product_catalog_form_table %}
+    {{ include('@Product/CatalogPage/Lists/products_table.html.twig', {
         'limit': limit,
         'orderBy': orderBy,
         'offset': offset,
@@ -21,14 +14,11 @@
         'filter_column_name_category': filter_column_name_category,
         'filter_column_price': filter_column_price,
         'filter_column_sav_quantity': filter_column_sav_quantity,
-        'filter_column_active': filter_column_active,
+        'filter_column_active':filter_column_active,
         'has_category_filter': has_category_filter,
         'activate_drag_and_drop': activate_drag_and_drop,
         'products': products,
-        'last_sql': last_sql,
-        'product_count_filtered': product_count_filtered,
-        'pagination_parameters': pagination_parameters,
-        'pagination_limit_choices': pagination_limit_choices
+        'last_sql': last_sql
     })
     }}
 {% endblock %}
